@@ -2,8 +2,6 @@ package gable.bookstore.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import gable.bookstore.entity.Book;
@@ -42,6 +40,12 @@ public class BookInventory implements BookList {
 		}
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	public void add(List<BookstoreItem> theBookList) {
+		this.allTheBooks.addAll(theBookList);
+		
 	}
 
 
