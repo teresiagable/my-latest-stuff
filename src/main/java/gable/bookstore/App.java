@@ -12,7 +12,8 @@ import java.util.List;
 
 import gable.bookstore.entity.Book;
 import gable.bookstore.entity.BookstoreItem;
-import gable.bookstore.service.BookInventory;
+import gable.bookstore.service.BookstoreManager;
+import gable.helper.HelpMe;
 
 import java.io.*;
 
@@ -26,15 +27,9 @@ public class App {
 
 	public static void main(String[] args) {
 		
-		BookInventory theBookStore = new BookInventory();
-
-
-		// VendingMachineManager theManager = new
-		// VendingMachineManager(getCurrentProducts());
+		BookstoreManager theBookStore = new BookstoreManager(addBooksFromTxtFile());
 
 		System.out.println("Welcome to the Bookstore.");
-
-		addBooksFromTxtFile();
 
 		while (true) {
 
@@ -42,17 +37,17 @@ public class App {
 
 			switch (menuChoice) {
 			case 1:
-				theBookStore.listBooks();
+				//theBookStore.listBooks();
 				break;
-			case 2:
-				theBookStore.buyBook();
-				break;
-			case 3:
-				theBookStore.cartInventory();
-				break;
-			case 4:
-				theBookStore.addBook();
-				break;
+//			case 2:
+//				theBookStore.search();
+//				break;
+//			case 3:
+//				theBookStore.updateCart();
+//				break;
+//			case 4:
+//				theBookStore.addBookToInventory();
+//				break;
 			case 5:
 				theBookStore.cashOut();
 				break;
@@ -67,12 +62,21 @@ public class App {
 	}
 
 	private static int printAndGetMenuChoice() {
-		// TODO Auto-generated method stub
-		return 0;
+
+		System.out.println("------------------");
+		System.out.println("1. View all books");
+		System.out.println("2. Buy a book");
+		System.out.println("3. Purchase");
+		System.out.println("4. Add a book to the store");
+		System.out.println("5. Cash out");
+		System.out.println("6. Leave");
+
+		return HelpMe.readIntegerfromUser(null, 1, 6);
 	}
 
-	private static void addBooksFromTxtFile() {
+	private static List<BookstoreItem> addBooksFromTxtFile() {
 
+		List<BookstoreItem> theBookList = new ArrayList<BookstoreItem>();
 		try {
 			URL urlBookStore = new URL(
 					"https://raw.githubusercontent.com/contribe/contribe/dev/bookstoredata/bookstoredata.txt");
@@ -89,7 +93,6 @@ public class App {
 				theBookList.add(b);
 			}
 			reader.close();
-			theBookStore.add(theBookList);
 
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -98,5 +101,6 @@ public class App {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return theBookList;
 	}
 }

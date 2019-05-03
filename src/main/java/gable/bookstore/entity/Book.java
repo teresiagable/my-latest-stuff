@@ -28,4 +28,10 @@ public class Book {
 		return price;
 	}
 
+	@Override
+	public String toString() {
+		return "Book title=" + title + ", author=" + author + ", price=" + price ;
+	}
+	
+
 }

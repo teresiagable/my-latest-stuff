@@ -64,9 +64,14 @@ public class BookstoreItem  {
 		return this.book.getAuthor();
 	}
 	
+	public String getTitle() {
+		return this.book.getTitle();
+	}
+	
 	public BigDecimal getPrice() {
 		return this.book.getPrice();
 	}
+	
 
 	//public boolean updateQuatity(Book book, )
 
@@ -74,5 +79,18 @@ public class BookstoreItem  {
 	public void addQuantity(int quantity2) {
 		this.quantity += quantity2;
 	}
+//	public StockStatus isInStock()
+//	{
+//		if(this.quantity>=1)
+//		{
+//			
+//		}
+//	}
 
+	@Override
+	public String toString() {
+		return book + ", Quantity=" + quantity;
+	}
+
+	
 }
