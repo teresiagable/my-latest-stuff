@@ -10,6 +10,11 @@ public class BookstoreItem  {
 	private Book book;
 	private int quantity;
 
+	public BookstoreItem(Book theBook, int quantity) {
+		this.book = theBook;
+		this.quantity = quantity;
+	}
+	
 	public BookstoreItem(String bookLine)  {
 
 		String[] bookData = bookLine.split(";", 4);
@@ -17,7 +22,6 @@ public class BookstoreItem  {
 		BigDecimal price;
 		try {
 			price = StringToBigDecimal(bookData[2]);
-
 		
 		this.book = new Book(bookData[0],bookData[1],price);
 		this.quantity =Integer.parseInt(bookData[3]);
@@ -37,11 +41,6 @@ public class BookstoreItem  {
 		DecimalFormat decimalFormat = new DecimalFormat(pattern, symbols);
 		decimalFormat.setParseBigDecimal(true);
 		return (BigDecimal) decimalFormat.parse(decimalString);
-	}
-
-	public BookstoreItem(Book theBook, int quantity) {
-		this.book = theBook;
-		this.quantity = quantity;
 	}
 
 	public Book getBook() {
@@ -89,8 +88,14 @@ public class BookstoreItem  {
 
 	@Override
 	public String toString() {
-		return book + ", Quantity=" + quantity;
+		return book + ", In stock:" + quantity;
 	}
 
+	public boolean updateQuantity(int changeValue) {
+		this.setQuantity(this.getQuantity()+changeValue);		
+	return true;
+	}
+
+	
 	
 }

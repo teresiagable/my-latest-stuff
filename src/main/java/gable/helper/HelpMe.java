@@ -29,7 +29,7 @@ public class HelpMe {
 			System.out.println(question);
 			String input = scanner.nextLine();
 			int theInt = Integer.parseInt(input);
-			if (theInt < min && theInt > max) {
+			if (theInt < min || theInt > max) {
 				throw new NumberFormatException();
 			} else
 				return Integer.parseInt(input);
@@ -82,5 +82,10 @@ public class HelpMe {
 			break;
 		}
 		return returnValue;
+	}
+
+	public static String readStringFromUser(String string) {
+		System.out.println(string);
+		return scanner.nextLine();
 	}
 }

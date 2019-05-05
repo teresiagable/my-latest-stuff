@@ -6,10 +6,13 @@ public enum StockStatus {
 	NOT_IN_STOCK(1),
 	DOES_NOT_EXIST(2);
 	
-	int responseCode;
+	public int responseCode;
 
 	private StockStatus(int responseCode) {
 		this.responseCode = responseCode;
 	}
-	
+
+	public int getResponseCode() {
+		return responseCode;
+	}	
 }

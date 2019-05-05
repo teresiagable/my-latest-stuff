@@ -37,14 +37,14 @@ public class App {
 
 			switch (menuChoice) {
 			case 1:
-				//theBookStore.listBooks();
+				theBookStore.printAllBooks();
 				break;
-//			case 2:
-//				theBookStore.search();
-//				break;
-//			case 3:
-//				theBookStore.updateCart();
-//				break;
+			case 2:
+				theBookStore.search(HelpMe.readStringFromUser("Enter search value:"));
+				break;
+			case 3:
+				theBookStore.addToCart();
+				break;
 //			case 4:
 //				theBookStore.addBookToInventory();
 //				break;
@@ -65,13 +65,13 @@ public class App {
 
 		System.out.println("------------------");
 		System.out.println("1. View all books");
-		System.out.println("2. Buy a book");
+		System.out.println("2. Search for a book");
 		System.out.println("3. Purchase");
 		System.out.println("4. Add a book to the store");
 		System.out.println("5. Cash out");
 		System.out.println("6. Leave");
 
-		return HelpMe.readIntegerfromUser(null, 1, 6);
+		return HelpMe.readIntegerfromUser("Enter a number: ", 1, 6);
 	}
 
 	private static List<BookstoreItem> addBooksFromTxtFile() {
@@ -88,14 +88,14 @@ public class App {
 			while ((bookLine = reader.readLine()) != null) {
 
 				BookstoreItem b = new BookstoreItem(bookLine);
-				System.out.println(b.getAuthor() + " " + b.getPrice() + " " + b.getQuantity());
+				//System.out.println(b.getAuthor() + " " + b.getPrice() + " " + b.getQuantity());
 				// System.out.println(b.getQuantity());
 				theBookList.add(b);
 			}
 			reader.close();
 
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
+				// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
