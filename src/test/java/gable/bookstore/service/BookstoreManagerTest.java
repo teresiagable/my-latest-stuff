@@ -14,7 +14,7 @@ import gable.bookstore.entity.Book;
 import gable.bookstore.entity.BookstoreItem;
 
 public class BookstoreManagerTest {
-	
+
 	BookstoreManager theStore;
 	List<BookstoreItem> bookList;
 	Book bookToAdd1;
@@ -38,14 +38,12 @@ public class BookstoreManagerTest {
 		bookToAdd4 = new Book("The Title4", "The Author4", BigDecimal.valueOf(100));
 
 		booksToBuy = new Book[] { bookToAdd1, bookToAdd2, bookToAdd3 };
-		
-		bookList = Arrays.asList(new BookstoreItem[] { 
-									new BookstoreItem(bookToAdd1, 1),
-									new BookstoreItem(bookToAdd2, 0),
-									new BookstoreItem(bookToAdd3, 0)});
-		
+
+		bookList = Arrays.asList(new BookstoreItem[] { new BookstoreItem(bookToAdd1, 1),
+				new BookstoreItem(bookToAdd2, 0), new BookstoreItem(bookToAdd3, 0) });
+
 		theStore = new BookstoreManager(bookList);
-		
+
 		bigDecimalString = "12,333,444,55";
 		aBigDecimal = BigDecimal.valueOf(12333444.55);
 
@@ -59,22 +57,20 @@ public class BookstoreManagerTest {
 	public void test_booklist_add() {
 		Book bookToAdd = bookToAdd4;
 		theStore.add(bookToAdd4, 10);
-		
+
 		assertEquals(bookToAdd4, theStore.list(bookToAdd.getTitle())[0]);
 
 	}
-	
+
 	@Test
 	public void test_booklist_list() {
-		
+
 		assertEquals(bookToAdd1, theStore.list(searchTitle)[0]);
 		assertEquals(bookToAdd3, theStore.list(searchAuthor)[0]);
-		
-		Book[] toFind = new Book[] {bookToAdd2, bookToAdd3};
+
+		Book[] toFind = new Book[] { bookToAdd2, bookToAdd3 };
 		assertArrayEquals(toFind, theStore.list(searchHitInBoth));
-		
 
 	}
-	
-	
+
 }

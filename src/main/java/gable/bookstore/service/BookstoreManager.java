@@ -3,7 +3,6 @@ package gable.bookstore.service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import gable.bookstore.entity.Book;
@@ -50,6 +49,48 @@ public class BookstoreManager implements BookList {
 			return false;
 	}
 
+	public void search(String stringFromUser) {
+
+		for (Book book : this.list(stringFromUser.trim())) {
+			System.out.println(book);
+		}
+	}
+
+	public void addToCart() {
+		int i = 1;
+		for (BookstoreItem bookstoreItem : allTheBooks) {
+			System.out.println(i + ". " + bookstoreItem.getBook());
+			i++;
+		}
+		int bookNo = HelpMe.readIntegerfromUser("Enter number of the book you want to buy", 1, i - 1);
+
+		Book book = allTheBooks.get(bookNo - 1).getBook();
+		shoppingCart.add(book);
+
+		System.out.println(book + " added to shopping cart");
+
+	}
+
+	public void removeFromCart() {
+		int i = 1;
+		for (Book bookInCart : shoppingCart) {
+			System.out.println(i + ". " + bookInCart);
+			i++;
+		}
+		int bookNo = HelpMe.readIntegerfromUser("Enter number of the book you want to remove from shopping cart", 1,
+				i - 1);
+
+		Book book = shoppingCart.get(bookNo - 1);
+		shoppingCart.remove(book);
+
+		System.out.println(book + " remove from shopping cart");
+	}
+
+	public void viewCart() {
+		System.out.println("Shopping cart:");
+		shoppingCart.forEach(System.out::println);
+	}
+
 	public void cashOut() {
 		BigDecimal totalSum = new BigDecimal(0);
 		System.out.println("Proceed to checkout?");
@@ -66,7 +107,7 @@ public class BookstoreManager implements BookList {
 				if (statusList[i] == StockStatus.OK.getResponseCode())
 					totalSum = totalSum.add(shoppingCart.get(i).getPrice());
 				else
-					System.out.println("\n"+ shoppingCart.get(i) + " is not in stock or not for sale.");
+					System.out.println("\n" + shoppingCart.get(i) + " is not in stock or not for sale.");
 			}
 
 			System.out.println("The total amount to pay is " + totalSum);
@@ -99,32 +140,35 @@ public class BookstoreManager implements BookList {
 
 	private boolean removeBoughtBook(Book book, int number) {
 
-		
 		for (BookstoreItem bookItem : allTheBooks) {
-			if(bookItem.getBook().equals(book)) 
+			if (bookItem.getBook().equals(book)) {
 				bookItem.updateQuantity(number);
 				return true;
+			}
 		}
 		return false;
-		
-		//Optional<BookstoreItem> bookItem = allTheBooks.stream().findFirst().filter(b -> b.getBook().equals(book));
-
-//		if (bookItem.isPresent())
-//			return bookItem.get().updateQuantity(-1);
-//		else
-//			return false;
-		
-		
 	}
 
 	private int getQuantity(Book book) {
 		int do_not_exist = Integer.MIN_VALUE;
 
 		for (BookstoreItem bookItem : allTheBooks) {
-			if(bookItem.getBook().equals(book)) return bookItem.getQuantity();
+			if (bookItem.getBook().equals(book))
+				return bookItem.getQuantity();
 		}
-		
+
 		return do_not_exist;
+	}
+
+	public void addBookToInventory() {
+		String title = HelpMe.readStringFromUser("Enter the title of the book: ");
+		String author = HelpMe.readStringFromUser("Enter the author of the book: ");
+		BigDecimal price = HelpMe.readBigDecimalFromUser("Enter the price of the book: ");
+		int quantity = HelpMe.readIntegerfromUser("How many? ", 1, 10_000_000);
+
+		Book newBook = new Book(title, author, price);
+		allTheBooks.add(new BookstoreItem(newBook, quantity));
+
 	}
 
 	public void leave() {
@@ -132,25 +176,4 @@ public class BookstoreManager implements BookList {
 		System.exit(0);
 	}
 
-	public void search(String stringFromUser) {
-
-		for (Book book : this.list(stringFromUser.trim())) {
-			System.out.println(book);
-		}
-	}
-
-	public void addToCart() {
-		int i = 1;
-		for (BookstoreItem bookstoreItem : allTheBooks) {
-			System.out.println(i + ". " + bookstoreItem.getBook());
-			i++;
-		}
-		int bookNo = HelpMe.readIntegerfromUser("Enter number of the book you want to buy", 1, i-1);
-
-		Book book = allTheBooks.get(bookNo - 1).getBook();
-		shoppingCart.add(book);
-
-		System.out.println(book + " added to shopping cart");
-
-	}
 }

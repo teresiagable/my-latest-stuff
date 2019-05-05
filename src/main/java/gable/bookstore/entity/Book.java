@@ -8,8 +8,6 @@ public class Book {
 	private String author;
 	private BigDecimal price;
 
-	
-	
 	public Book(String title, String author, BigDecimal price) {
 		this.title = title;
 		this.author = author;
@@ -30,7 +28,7 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return title + " by " + author + ", price: " + price ;
+		return title + " by " + author + ", price: " + price;
 	}
 
 	@Override
@@ -69,7 +67,5 @@ public class Book {
 			return false;
 		return true;
 	}
-	
-	
 
 }

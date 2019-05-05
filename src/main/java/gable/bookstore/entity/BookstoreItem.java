@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 
-public class BookstoreItem  {
+public class BookstoreItem {
 
 	private Book book;
 	private int quantity;
@@ -14,25 +14,25 @@ public class BookstoreItem  {
 		this.book = theBook;
 		this.quantity = quantity;
 	}
-	
-	public BookstoreItem(String bookLine)  {
+
+	public BookstoreItem(String bookLine) {
 
 		String[] bookData = bookLine.split(";", 4);
 
 		BigDecimal price;
 		try {
 			price = StringToBigDecimal(bookData[2]);
-		
-		this.book = new Book(bookData[0],bookData[1],price);
-		this.quantity =Integer.parseInt(bookData[3]);
-		
+
+			this.book = new Book(bookData[0], bookData[1], price);
+			this.quantity = Integer.parseInt(bookData[3]);
+
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	private BigDecimal StringToBigDecimal(String decimalString) throws ParseException {
 		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
 		symbols.setGroupingSeparator(',');
@@ -62,18 +62,16 @@ public class BookstoreItem  {
 	public String getAuthor() {
 		return this.book.getAuthor();
 	}
-	
+
 	public String getTitle() {
 		return this.book.getTitle();
 	}
-	
+
 	public BigDecimal getPrice() {
 		return this.book.getPrice();
 	}
-	
 
-	//public boolean updateQuatity(Book book, )
-
+	// public boolean updateQuatity(Book book, )
 
 	public void addQuantity(int quantity2) {
 		this.quantity += quantity2;
@@ -92,10 +90,8 @@ public class BookstoreItem  {
 	}
 
 	public boolean updateQuantity(int changeValue) {
-		this.setQuantity(this.getQuantity()+changeValue);		
-	return true;
+		this.setQuantity(this.getQuantity() + changeValue);
+		return true;
 	}
 
-	
-	
 }
